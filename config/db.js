@@ -1,21 +1,15 @@
 const mongoose = require('mongoose');
-const config = require('config');
-const db = config.get('mongoURI');
-
-// const password = encodeURIComponent("GOk@9846"); // password encryption if it contain special characters
-
-
+const {MONGOURI} = require('../keys')
 
 const connectDB = async () => {
 
   try {
     await mongoose.connect(
-      db,
+      process.env.DATABASE_URL || MONGOURI,
       {
         useNewUrlParser: true
       }
     );
-
     console.log('MongoDB is Connected...');
   } catch (err) {
     console.log('MongoDB is not connected err...');
